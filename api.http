@@ -1,16 +1,9 @@
 @baseUrl = http://localhost:8080
 @access_token = 059fa04b-d996-465e-8820-7cd984300c53
 
-POST {{baseUrl}}/client/auth/register
+GET {{baseUrl}}/books
 content-type: application/json
 
-{
-	"first_name" : "Sumiyadorj",
-	"last_name" : "Chinzorig",
-	"email" : "suumiizxc@gmail.com",
-	"phone" : "85587701",
-	"password" : "bigerbuldeehairtai"
-}
 
 ###
 // Client login
@@ -23,3 +16,20 @@ content-type: application/json
 }
 
 ###
+// Client login
+POST {{baseUrl}}/furnitures
+content-type: application/json
+
+{
+	"name" : "test",
+    "description" : "test",
+    "measurement" : "test",
+    "price" : 100.10,
+    "category_id" : 1,
+    "status" : "active"
+}
+
+###
+// Client login
+GET {{baseUrl}}/furnitures
+content-type: application/json

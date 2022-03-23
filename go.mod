@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/gin-gonic/gin v1.7.4
+	github.com/mashingan/smapping v0.1.13
 	gorm.io/driver/postgres v1.3.1
 	gorm.io/gorm v1.23.3
 )

@@ -3,6 +3,9 @@ package config
 import (
 	"os"
 
+	"github.com/suumiizxc/gin-bookstore/models"
+	furniture "github.com/suumiizxc/gin-bookstore/models/furniture"
+
 	"gorm.io/gorm"
 
 	"gorm.io/driver/postgres"
@@ -19,7 +22,10 @@ func ConnectDatabase() {
 		panic("Failed to connect to database!")
 	}
 
-	// database.AutoMigrate(&Book{})
+	database.AutoMigrate(
+		&models.Book{},
+		&furniture.Furniture{},
+	)
 
 	DB = database
 }
