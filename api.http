@@ -1,0 +1,25 @@
+@baseUrl = http://localhost:8080
+@access_token = 059fa04b-d996-465e-8820-7cd984300c53
+
+POST {{baseUrl}}/client/auth/register
+content-type: application/json
+
+{
+	"first_name" : "Sumiyadorj",
+	"last_name" : "Chinzorig",
+	"email" : "suumiizxc@gmail.com",
+	"phone" : "85587701",
+	"password" : "bigerbuldeehairtai"
+}
+
+###
+// Client login
+POST {{baseUrl}}/books
+content-type: application/json
+
+{
+	"title" : "test",
+    "author" : "test"
+}
+
+###

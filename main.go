@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/rahmanfadhil/gin-bookstore/controllers"
-	"github.com/rahmanfadhil/gin-bookstore/models"
+	"github.com/suumiizxc/gin-bookstore/config"
+	"github.com/suumiizxc/gin-bookstore/controllers"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,7 +11,7 @@ func main() {
 	r := gin.Default()
 
 	// Connect to database
-	models.ConnectDatabase()
+	config.ConnectDatabase()
 
 	// Routes
 	r.GET("/books", controllers.FindBooks)
