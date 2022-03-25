@@ -57,14 +57,15 @@ func CreateClient(c *gin.Context) {
 
 		prev := models.Client{}
 		if prev_err := tx.Where("email = ?", client.Email).First(&prev).Error; prev_err == nil {
-			return fmt.Errorf("error : %v", "Already user created this email")
+			return fmt.Errorf("%v", "Already user created this email")
 		}
 		if err := tx.Create(&client).Error; err != nil {
 			return err
 		}
 		return nil
 	}); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+		fmt.Println("pisda", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": client})

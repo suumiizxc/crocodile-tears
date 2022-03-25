@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/suumiizxc/gin-bookstore/config"
 	"github.com/suumiizxc/gin-bookstore/controllers"
+	client "github.com/suumiizxc/gin-bookstore/controllers/client"
 	furniture "github.com/suumiizxc/gin-bookstore/controllers/furniture"
 
 	"github.com/gin-gonic/gin"
@@ -24,6 +25,8 @@ func main() {
 	r.GET("/furnitures", furniture.FindFurnitures)
 	r.POST("/furnitures", furniture.CreateFurniture)
 
+	r.GET("/clients", client.FindClients)
+	r.POST("/client", client.CreateClient)
 	// Run the server
 	r.Run()
 }

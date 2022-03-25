@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/suumiizxc/gin-bookstore/models"
+	client "github.com/suumiizxc/gin-bookstore/models/client"
 	furniture "github.com/suumiizxc/gin-bookstore/models/furniture"
 
 	"gorm.io/gorm"
@@ -25,6 +26,7 @@ func ConnectDatabase() {
 	database.AutoMigrate(
 		&models.Book{},
 		&furniture.Furniture{},
+		&client.Client{},
 	)
 
 	DB = database
