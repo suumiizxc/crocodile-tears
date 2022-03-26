@@ -1,0 +1,20 @@
+http://202.131.242.158:4020/#/CIF-B/045?role=53&company=11&app=Customer
+
+https://docs.grapecity.mn/s/c4fjce6iglvp3eegdtcg/polaris-openapi/d/c5rsr5uiglvp3eegeif0/customer
+
+
+REQUEST
+
+POST /nes.s.Web/NesFront HTTP/1.1
+Host: 202.131.242.158:4020
+User-Agent: insomnia/2022.2.1
+Content-Type: application/json
+Cookie: NESSESSION=IhfnT35v8eRmYIGx7nSCPD3DScV3w4
+op: 13610310
+company: 11
+lang: 1
+role: 53
+
+[
+   "CIF-11001745"
+]
