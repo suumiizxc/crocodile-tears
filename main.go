@@ -5,6 +5,7 @@ import (
 	"github.com/suumiizxc/gin-bookstore/controllers"
 	client "github.com/suumiizxc/gin-bookstore/controllers/client"
 	furniture "github.com/suumiizxc/gin-bookstore/controllers/furniture"
+	"github.com/suumiizxc/gin-bookstore/helper/redis"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,6 +15,7 @@ func main() {
 
 	// Connect to database
 	config.ConnectDatabase()
+	redis.RedisConfig()
 
 	// Routes
 	r.GET("/books", controllers.FindBooks)
@@ -27,6 +29,9 @@ func main() {
 
 	r.GET("/clients", client.FindClients)
 	r.POST("/client", client.CreateClient)
+	r.POST("/client/login-phone", client.LoginPhone)
+	r.POST("/client/login-email")
+	r.GET("/client", client.ProfileClient)
 	// Run the server
 	r.Run()
 }

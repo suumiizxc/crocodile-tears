@@ -9,6 +9,7 @@ type Client struct {
 	Password  string `json:"password"`
 	Email     string `json:"email"`
 	Phone     string `json:"phone"`
+	Token     string `gorm:"-" json:"token,omitempty"`
 	IsActive  uint64 `json:"is_active"`
 	CreatedAt time.Time
 	UpdatedAt time.Time

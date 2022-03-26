@@ -27,6 +27,7 @@ func ConnectDatabase() {
 		&models.Book{},
 		&furniture.Furniture{},
 		&client.Client{},
+		&client.Permission{},
 	)
 
 	DB = database
