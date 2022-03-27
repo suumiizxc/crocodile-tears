@@ -4,6 +4,7 @@ import (
 	"github.com/suumiizxc/gin-bookstore/config"
 	"github.com/suumiizxc/gin-bookstore/controllers"
 	client "github.com/suumiizxc/gin-bookstore/controllers/client"
+	customer "github.com/suumiizxc/gin-bookstore/controllers/core/customer"
 	furniture "github.com/suumiizxc/gin-bookstore/controllers/furniture"
 	"github.com/suumiizxc/gin-bookstore/helper/redis"
 
@@ -32,6 +33,8 @@ func main() {
 	r.POST("/client/login-phone", client.LoginPhone)
 	r.POST("/client/login-email")
 	r.GET("/client", client.ProfileClient)
+
+	r.POST("/core/customer", customer.CreateCustomer)
 	// Run the server
 	r.Run()
 }
