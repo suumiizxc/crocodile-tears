@@ -19,18 +19,30 @@ type Post struct {
 	Body   string `json:"body"`
 }
 
+type Result struct {
+	Status int
+	Result string
+	Reason string
+}
+
 func CreateCustomer(c *gin.Context) {
-	// var input CreateCustomerInput
-	// customer := models.Customer{}
 
 	poster := []Post{{Userid: "1", Title: "foo", Body: "bar"}}
+
+	var tmp []interface{}
+	var data = []byte(`[ 404, "error", "Not Found" ]`)
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		log.Fatal(err)
+	}
+	// Not ugly! Not fragile!
+	// fmt.Println("Status code : ", int(tmp[0].(float64)))
+
+	fmt.Println("Status code : ", tmp)
+
 	json_data, err := json.Marshal(poster)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-
-	// resp, err := http.PostForm("https://jsonplaceholder.typicode.com/posts",
-	// 	params)
 	fmt.Println("request body : ", bytes.NewBuffer(json_data))
 	req, err := http.NewRequest("POST", "https://jsonplaceholder.typicode.com/posts", bytes.NewBuffer(json_data))
 
