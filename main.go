@@ -31,10 +31,12 @@ func main() {
 	r.GET("/clients", client.FindClients)
 	r.POST("/client", client.CreateClient)
 	r.POST("/client/login-phone", client.LoginPhone)
-	r.POST("/client/login-email")
+	r.POST("/client/login-email", client.LoginEmail)
 	r.GET("/client", client.ProfileClient)
 
-	r.POST("/core/customer", customer.CreateCustomer)
+	r.POST("/core/customer/create-test", customer.CreateTest)
+	r.POST("/core/customer/create", customer.CreateCustomer)
+	r.POST("/core/customer/countryCodes/:limit/:page", customer.GetCountryCodes)
 	// Run the server
 	r.Run()
 }
