@@ -36,19 +36,20 @@ func GetCountryCodes(c *gin.Context) {
 	}
 
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Cookie", "NESSESSION=22QivFUT3jGC681187SzyfmEzJn7DL")
+	req.Header.Add("Cookie", "NESSESSION=hCQzwGBMtY9YblZwtMnKfyO1UG49bN")
 	req.Header.Add("op", "10201170")
 	req.Header.Add("company", "11")
 	req.Header.Add("lang", "1")
 	req.Header.Add("role", "53")
 
-	client := &http.Client{Timeout: time.Second * 10}
+	client := &http.Client{Timeout: time.Second * 3}
 
 	fmt.Println("req : ", req)
 	resp, err := client.Do(req)
 
 	if err != nil {
-		log.Fatal("Error reading response : ", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 	defer resp.Body.Close()
 	fmt.Println("status code :", resp)

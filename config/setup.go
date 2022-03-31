@@ -15,7 +15,7 @@ import (
 var DB *gorm.DB
 
 func ConnectDatabase() {
-	dsn := "postgresql://root:root@0.0.0.0:5432/TA"
+	dsn := "postgresql://suumiizxc:JS4Fr38-sJnWLe7KvyNkdQ@free-tier6.gcp-asia-southeast1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dwide-ogress-2468"
 	connstring := os.ExpandEnv(dsn)
 	database, err := gorm.Open(postgres.Open(connstring), &gorm.Config{})
 
