@@ -39,7 +39,7 @@ func (pct *PolarisConst) GetPolarisConst(name string) string {
 	return Info[name]
 }
 
-var PC PolarisConst
+var PC = &PolarisConst{}
 
 const (
 	OP_test = 123456
@@ -49,10 +49,8 @@ func PolarisVar() {
 	if err := godotenv.Load(".env"); err != nil {
 		panic(fmt.Sprintf("Failed env : %v", err))
 	}
-	pc := PolarisConst{}
-	pc.polaris_company = os.Getenv("POLARIS_COMPANY")
-	pc.polaris_lang = os.Getenv("POLARIS_LANG")
-	pc.polaris_role = os.Getenv("POLARIS_ROLE")
-	pc.polaris_url = os.Getenv("POLARIS_URL")
-	PC = pc
+	PC.polaris_company = os.Getenv("POLARIS_COMPANY")
+	PC.polaris_lang = os.Getenv("POLARIS_LANG")
+	PC.polaris_role = os.Getenv("POLARIS_ROLE")
+	PC.polaris_url = os.Getenv("POLARIS_URL")
 }
