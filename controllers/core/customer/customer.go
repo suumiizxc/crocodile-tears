@@ -64,12 +64,12 @@ func CreateCustomer(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	response, err := helper_core.CH.Request("13610313", "token", json_data)
+	response := helper_core.CH.Request("13610313", "token", json_data)
 
-	if err != nil {
-		log.Printf("Request failed : %s", err.Error())
+	if response.Err != nil {
+		log.Printf("Request failed : %s", response.Err.Error())
 	}
-	c.JSON(http.StatusOK, gin.H{"data": response})
+	c.JSON(response.StatusCode, gin.H{"data": response.Data})
 
 	// fmt.Println("bodyData : ", json_data)
 	// req, err := http.NewRequest("POST", "http://202.131.242.158:4020/nes.s.Web/NesFront", bytes.NewBuffer(json_data))

@@ -40,7 +40,13 @@ func (corehelper *core_helper) Init() {
 // 	corehelper.polaris_url = os.Getenv("POLARIS_URL")
 // }
 
-func (corehelper core_helper) Request(opcode string, token string, field []byte) ([]interface{}, error) {
+type Response struct {
+	Data       []interface{}
+	StatusCode int
+	Err        error
+}
+
+func (corehelper core_helper) Request(opcode string, token string, field []byte) *Response {
 	req, err := http.NewRequest("POST", corehelper.polaris_url, bytes.NewBuffer(field))
 
 	if err != nil {
@@ -53,11 +59,11 @@ func (corehelper core_helper) Request(opcode string, token string, field []byte)
 	req.Header.Add("lang", corehelper.polaris_lang)
 	req.Header.Add("role", corehelper.polaris_role)
 
-	client := &http.Client{Timeout: time.Second * 3}
+	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Do(req)
 
 	if err != nil {
-		return nil, fmt.Errorf("error : %v", err.Error())
+		return &Response{Data: nil, StatusCode: resp.StatusCode, Err: fmt.Errorf("error : %v", err.Error())}
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
@@ -69,9 +75,9 @@ func (corehelper core_helper) Request(opcode string, token string, field []byte)
 	var tmp []interface{}
 	var data = []byte(bodyString)
 	if err := json.Unmarshal(data, &tmp); err != nil {
-		return nil, err
+		return &Response{Data: nil, StatusCode: resp.StatusCode, Err: fmt.Errorf("error : %v", err.Error())}
 	}
-	return tmp, nil
+	return &Response{Data: tmp, StatusCode: 200, Err: nil}
 }
 
 var CH = new(core_helper)
