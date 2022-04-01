@@ -17,7 +17,7 @@ func main() {
 	// Connect to database
 
 	config.ConnectDatabase()
-	helper_core.PolarisVar()
+	helper_core.CH.Init()
 	redis.RedisConfig()
 
 	// Routes
@@ -39,6 +39,7 @@ func main() {
 	r.POST("/core/customer/create-test", customer.CreateTest)
 	r.POST("/core/customer/create", customer.CreateCustomer)
 	r.POST("/core/customer/countryCodes/:limit/:page", customer.GetCountryCodes)
+
 	// Run the server
 	r.Run()
 }
