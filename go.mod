@@ -6,6 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.7.4
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/google/uuid v1.3.0
+	github.com/joho/godotenv v1.4.0
 	github.com/mashingan/smapping v0.1.13
 	golang.org/x/crypto v0.0.0-20220321153916-2c7772ba3064
 	gorm.io/driver/postgres v1.3.1
