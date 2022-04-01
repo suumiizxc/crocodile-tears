@@ -151,7 +151,7 @@ func LoginEmail(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed in redis"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": client})
+	c.JSON(http.StatusOK, gin.H{"data": client, "status": http.StatusText(http.StatusOK)})
 }
 
 func ProfileClient(c *gin.Context) {
