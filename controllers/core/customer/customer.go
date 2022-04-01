@@ -1,13 +1,10 @@
 package customer
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	helper_core "github.com/suumiizxc/gin-bookstore/helper/core"
@@ -55,9 +52,6 @@ type CreateCustomerInput struct {
 }
 
 func CreateCustomer(c *gin.Context) {
-
-	fmt.Println("company : ", helper_core.PC.GetCompany())
-
 	input := CreateCustomerInput{}
 	if err := c.ShouldBind(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -70,35 +64,42 @@ func CreateCustomer(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	fmt.Println("bodyData : ", json_data)
-	req, err := http.NewRequest("POST", "http://202.131.242.158:4020/nes.s.Web/NesFront", bytes.NewBuffer(json_data))
+	response, err := helper_core.CH.Request("13610313", "token", json_data)
 
 	if err != nil {
 		log.Printf("Request failed : %s", err.Error())
 	}
+	c.JSON(http.StatusOK, gin.H{"data": response})
 
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Cookie", "NESSESSION=22QivFUT3jGC681187SzyfmEzJn7DL")
-	req.Header.Add("op", "13610313")
-	req.Header.Add("company", helper_core.PC.GetCompany())
-	req.Header.Add("lang", helper_core.PC.GetLang())
-	req.Header.Add("role", helper_core.PC.GetRole())
+	// fmt.Println("bodyData : ", json_data)
+	// req, err := http.NewRequest("POST", "http://202.131.242.158:4020/nes.s.Web/NesFront", bytes.NewBuffer(json_data))
 
-	client := &http.Client{Timeout: time.Second * 10}
+	// if err != nil {
+	// 	log.Printf("Request failed : %s", err.Error())
+	// }
 
-	fmt.Println("req : ", req.Body)
-	resp, err := client.Do(req)
+	// req.Header.Add("Content-Type", "application/json")
+	// req.Header.Add("Cookie", "NESSESSION=22QivFUT3jGC681187SzyfmEzJn7DL")
+	// req.Header.Add("op", "13610313")
+	// req.Header.Add("company", helper_core.PC.GetCompany())
+	// req.Header.Add("lang", helper_core.PC.GetLang())
+	// req.Header.Add("role", helper_core.PC.GetRole())
 
-	if err != nil {
-		log.Fatal("Error reading response : ", err)
-	}
-	defer resp.Body.Close()
-	fmt.Println("status code :", resp.StatusCode)
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Printf("Request failed : %s", err)
-	}
-	bodyString := string(body)
-	log.Print(bodyString)
+	// client := &http.Client{Timeout: time.Second * 10}
+
+	// fmt.Println("req : ", req.Body)
+	// resp, err := client.Do(req)
+
+	// if err != nil {
+	// 	log.Fatal("Error reading response : ", err)
+	// }
+	// defer resp.Body.Close()
+	// fmt.Println("status code :", resp.StatusCode)
+	// body, err := ioutil.ReadAll(resp.Body)
+	// if err != nil {
+	// 	log.Printf("Request failed : %s", err)
+	// }
+	// bodyString := string(body)
+	// log.Print(bodyString)
 
 }

@@ -25,7 +25,7 @@ func GetCountryCodes(c *gin.Context) {
 		return
 	}
 	var bodyData = []byte(fmt.Sprintf(`[[], %v, %v]`, page*limit, limit))
-	response, err := helper_core.CH.Request("10201170", "VV0BQPbHHeJ6IlxM8MQTwBWoYDqnrc", bodyData)
+	response, err := helper_core.CH.Request(helper_core.GET_COUNTRY, "VV0BQPbHHeJ6IlxM8MQTwBWoYDqnrc", bodyData)
 	if err != nil {
 		log.Printf("Request failed : %s", err.Error())
 	}
