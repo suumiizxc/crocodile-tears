@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/suumiizxc/gin-bookstore/models"
@@ -9,13 +10,17 @@ import (
 
 	"gorm.io/gorm"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 )
 
 var DB *gorm.DB
 
 func ConnectDatabase() {
-	dsn := "postgresql://suumiizxc:JS4Fr38-sJnWLe7KvyNkdQ@free-tier6.gcp-asia-southeast1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dwide-ogress-2468"
+	if err := godotenv.Load(".env"); err != nil {
+		panic(fmt.Sprintf("Failed env : %v", err))
+	}
+	dsn := os.Getenv("DB")
 	connstring := os.ExpandEnv(dsn)
 	database, err := gorm.Open(postgres.Open(connstring), &gorm.Config{})
 

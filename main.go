@@ -1,21 +1,23 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/suumiizxc/gin-bookstore/config"
 	"github.com/suumiizxc/gin-bookstore/controllers"
 	client "github.com/suumiizxc/gin-bookstore/controllers/client"
 	customer "github.com/suumiizxc/gin-bookstore/controllers/core/customer"
 	furniture "github.com/suumiizxc/gin-bookstore/controllers/furniture"
+	helper_core "github.com/suumiizxc/gin-bookstore/helper/core"
 	"github.com/suumiizxc/gin-bookstore/helper/redis"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
 
 	// Connect to database
+
 	config.ConnectDatabase()
+	helper_core.PolarisVar()
 	redis.RedisConfig()
 
 	// Routes

@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	// models "github.com/suumiizxc/gin-bookstore/models/core/customer"
+	helper_core "github.com/suumiizxc/gin-bookstore/helper/core"
 )
 
 type CreateCustomerInput struct {
@@ -55,6 +55,9 @@ type CreateCustomerInput struct {
 }
 
 func CreateCustomer(c *gin.Context) {
+
+	fmt.Println("company : ", helper_core.PC.GetCompany())
+
 	input := CreateCustomerInput{}
 	if err := c.ShouldBind(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -77,9 +80,9 @@ func CreateCustomer(c *gin.Context) {
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Cookie", "NESSESSION=22QivFUT3jGC681187SzyfmEzJn7DL")
 	req.Header.Add("op", "13610313")
-	req.Header.Add("company", "11")
-	req.Header.Add("lang", "1")
-	req.Header.Add("role", "53")
+	req.Header.Add("company", helper_core.PC.GetCompany())
+	req.Header.Add("lang", helper_core.PC.GetLang())
+	req.Header.Add("role", helper_core.PC.GetRole())
 
 	client := &http.Client{Timeout: time.Second * 10}
 
