@@ -64,7 +64,7 @@ func CreateCustomer(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	response := helper_core.CH.Request("13610313", "token", json_data)
+	response := helper_core.CH.Request("13610313", json_data)
 
 	if response.Err != nil {
 		log.Printf("Request failed : %s", response.Err.Error())
