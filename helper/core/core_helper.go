@@ -43,6 +43,7 @@ func (corehelper *core_helper) Init() {
 
 type Response struct {
 	Data       []interface{}
+	DataString string
 	StatusCode int
 	Err        error
 }
@@ -51,7 +52,7 @@ func (_ch core_helper) Request(opcode string, field []byte) *Response {
 	val, err := redis.RS.Get("POLARIS_COOKIE_TOKEN").Result()
 	if err != nil {
 
-		return &Response{Data: nil, StatusCode: 500, Err: fmt.Errorf("error : %v", err.Error())}
+		return &Response{Data: nil, DataString: "", StatusCode: 500, Err: fmt.Errorf("error : %v", err.Error())}
 	}
 	req, err := http.NewRequest("POST", _ch.polaris_url, bytes.NewBuffer(field))
 
@@ -69,7 +70,7 @@ func (_ch core_helper) Request(opcode string, field []byte) *Response {
 	resp, err := client.Do(req)
 
 	if err != nil {
-		return &Response{Data: nil, StatusCode: resp.StatusCode, Err: fmt.Errorf("error : %v", err.Error())}
+		return &Response{Data: nil, DataString: "", StatusCode: resp.StatusCode, Err: fmt.Errorf("error : %v", err.Error())}
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
@@ -80,10 +81,11 @@ func (_ch core_helper) Request(opcode string, field []byte) *Response {
 
 	var tmp []interface{}
 	var data = []byte(bodyString)
+	fmt.Println("datastring : ", bodyString)
 	if err := json.Unmarshal(data, &tmp); err != nil {
-		return &Response{Data: nil, StatusCode: resp.StatusCode, Err: fmt.Errorf("error : %v", err.Error())}
+		return &Response{Data: nil, DataString: bodyString, StatusCode: resp.StatusCode, Err: fmt.Errorf("error : %v", err.Error())}
 	}
-	return &Response{Data: tmp, StatusCode: 200, Err: nil}
+	return &Response{Data: tmp, DataString: bodyString, StatusCode: 200, Err: nil}
 }
 
 var CH = new(core_helper)
