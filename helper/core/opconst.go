@@ -19,4 +19,10 @@ const (
 	EDUCATION_DEGREE_GET    = "10201204"
 
 	LIST_EDUCATION_LEVEL = "10201190"
+
+	NATION_LIST   = "10201280" // []
+	NATION_INSERT = "10201281" // [{},{"name": "test", "name2": "test name", "orderNo": 0}]
+	NATION_UPDATE = "10201282" // [{},{"nationalityId":23,"name":"test","name2":"TEST EDITED","orderNo":0}]
+	NATION_DELETE = "10201283" // [{}, 22]
+	NATION_SELECT = "10201284" // [22]
 )
