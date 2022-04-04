@@ -40,6 +40,8 @@ func main() {
 	r.POST("/core/customer/create", customer.CreateCustomer)
 	r.POST("/core/customer/countryCodes/:limit/:page", customer.GetCountryCodes)
 
+	r.POST("/core/customer/education-degrees", customer.GetEducationDegrees)
+
 	// Run the server
 	r.Run()
 }
