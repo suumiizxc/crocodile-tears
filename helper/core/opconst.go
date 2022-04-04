@@ -20,9 +20,15 @@ const (
 
 	LIST_EDUCATION_LEVEL = "10201190"
 
-	NATION_LIST   = "10201280" // []
+	NATION_LIST   = "10201280" // [[],0,25]
 	NATION_INSERT = "10201281" // [{},{"name": "test", "name2": "test name", "orderNo": 0}]
 	NATION_UPDATE = "10201282" // [{},{"nationalityId":23,"name":"test","name2":"TEST EDITED","orderNo":0}]
 	NATION_DELETE = "10201283" // [{}, 22]
 	NATION_SELECT = "10201284" // [22]
+
+	ETHNICITY_LIST   = "10201220"
+	ETHNICITY_INSERT = "10201221" // [{name: "Test", name2: "Test", nationalityId: "1", orderNo: 0}]
+	ETHNICITY_UPDATE = "10201222" //
+	ETHNICITY_DELETE = "10201223" // [31]
+	ETHNICITY_SELECT = "10201224" // [31]
 )

@@ -50,6 +50,11 @@ func main() {
 	r.GET("/core/customer/nation/:id", customer.NationGet)
 	r.GET("/core/customer/nations/:limit/:page", customer.NationList)
 
+	r.POST("/core/customer/ethnicity/create", customer.EthnicityCreate)
+	r.DELETE("/core/customer/ethnicity/delete/:id", customer.EthnicityDelete)
+	r.GET("/core/customer/ethnicity/:id", customer.EthnicityGet)
+	r.GET("/core/customer/ethnicitys/:limit/:page", customer.EthnicityList)
+
 	// Run the server
 	r.Run()
 }
