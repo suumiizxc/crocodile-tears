@@ -46,8 +46,8 @@ type Response struct {
 	Err        error
 }
 
-func (corehelper core_helper) Request(opcode string, token string, field []byte) *Response {
-	req, err := http.NewRequest("POST", corehelper.polaris_url, bytes.NewBuffer(field))
+func (_ch core_helper) Request(opcode string, token string, field []byte) *Response {
+	req, err := http.NewRequest("POST", _ch.polaris_url, bytes.NewBuffer(field))
 
 	if err != nil {
 		log.Printf("Request failed : %s", err.Error())
@@ -55,9 +55,9 @@ func (corehelper core_helper) Request(opcode string, token string, field []byte)
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Cookie", "NESSESSION="+token)
 	req.Header.Add("op", opcode)
-	req.Header.Add("company", corehelper.polaris_company)
-	req.Header.Add("lang", corehelper.polaris_lang)
-	req.Header.Add("role", corehelper.polaris_role)
+	req.Header.Add("company", _ch.polaris_company)
+	req.Header.Add("lang", _ch.polaris_lang)
+	req.Header.Add("role", _ch.polaris_role)
 
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Do(req)
