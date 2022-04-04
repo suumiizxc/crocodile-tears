@@ -45,6 +45,11 @@ func main() {
 	r.POST("/core/customer/education-degree/create", customer.EducationDegreeCreate)
 	r.DELETE("/core/customer/education-degree/delete/:id", customer.EducationDegreeDelete)
 
+	r.GET("/core/customer/education-levels", customer.EducationLevelList)
+	r.GET("/core/customer/education-level/:id", customer.EducationLevelGet)
+	r.POST("/core/customer/education-level/create", customer.EducationLevelCreate)
+	r.DELETE("/core/customer/education-level/delete/:id", customer.EducationLevelDelete)
+
 	// Run the server
 	r.Run()
 }
