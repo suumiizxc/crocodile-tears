@@ -52,7 +52,7 @@ func (_ch core_helper) Request(opcode string, field []byte) *Response {
 	val, err := redis.RS.Get("POLARIS_COOKIE_TOKEN").Result()
 	if err != nil {
 
-		return &Response{Data: nil, DataString: "", StatusCode: 500, Err: fmt.Errorf("error : %v", err.Error())}
+		return &Response{Data: nil, DataString: "", StatusCode: 401, Err: fmt.Errorf("error : %v", err.Error())}
 	}
 	req, err := http.NewRequest("POST", _ch.polaris_url, bytes.NewBuffer(field))
 
