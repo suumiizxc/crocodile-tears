@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
+	"github.com/suumiizxc/gin-bookstore/helper/redis"
 )
 
 type core_helper struct {
@@ -46,14 +47,19 @@ type Response struct {
 	Err        error
 }
 
-func (_ch core_helper) Request(opcode string, token string, field []byte) *Response {
+func (_ch core_helper) Request(opcode string, field []byte) *Response {
+	val, err := redis.RS.Get("POLARIS_COOKIE_TOKEN").Result()
+	if err != nil {
+
+		return &Response{Data: nil, StatusCode: 500, Err: fmt.Errorf("error : %v", err.Error())}
+	}
 	req, err := http.NewRequest("POST", _ch.polaris_url, bytes.NewBuffer(field))
 
 	if err != nil {
 		log.Printf("Request failed : %s", err.Error())
 	}
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Cookie", "NESSESSION="+token)
+	req.Header.Add("Cookie", "NESSESSION="+val)
 	req.Header.Add("op", opcode)
 	req.Header.Add("company", _ch.polaris_company)
 	req.Header.Add("lang", _ch.polaris_lang)
