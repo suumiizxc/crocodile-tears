@@ -7,11 +7,18 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/suumiizxc/gin-bookstore/helper/redis"
+
 	// models "github.com/suumiizxc/gin-bookstore/models/core/customer"
 	helper_core "github.com/suumiizxc/gin-bookstore/helper/core"
 )
 
 func GetCountryCodes(c *gin.Context) {
+	val, err := redis.RS.Get("POLARIS_COOKIE_TOKEN").Result()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed in redis"})
+		return
+	}
 	limit, err := strconv.ParseUint(c.Param("limit"), 10, 64)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed in limit"})
@@ -23,7 +30,7 @@ func GetCountryCodes(c *gin.Context) {
 		return
 	}
 	var bodyData = []byte(fmt.Sprintf(`[[], %v, %v]`, page*limit, limit))
-	response := helper_core.CH.Request(helper_core.GET_COUNTRY, "VV0BQPbHHeJ6IlxM8MQTwBWoYDqnrc", bodyData)
+	response := helper_core.CH.Request(helper_core.LIST_COUNTRY, val, bodyData)
 	if response.Err != nil {
 		log.Printf("Request failed : %s", response.Err.Error())
 	}
