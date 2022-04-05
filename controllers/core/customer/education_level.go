@@ -36,7 +36,7 @@ func EducationLevelCreate(c *gin.Context) {
 	response := helper_core.CH.Request(helper_core.EDUCATION_LEVEL_CREATE, bodyData)
 	if response.Err != nil {
 		if response.StatusCode == 200 {
-			c.JSON(http.StatusOK, gin.H{"data": nil, "message": "successfully"})
+			c.JSON(http.StatusOK, gin.H{"data": response.DataString, "message": "successfully"})
 			return
 		}
 		c.JSON(http.StatusNotImplemented, gin.H{"error": "Failed in request " + response.DataString})

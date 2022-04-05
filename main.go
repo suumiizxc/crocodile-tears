@@ -50,6 +50,21 @@ func main() {
 	r.POST("/core/customer/education-level/create", customer.EducationLevelCreate)
 	r.DELETE("/core/customer/education-level/delete/:id", customer.EducationLevelDelete)
 
+	r.GET("/core/customer/employments", customer.EmploymentList)
+	r.GET("/core/customer/employment/:id", customer.EmploymentGet)
+	r.POST("/core/customer/employment/create", customer.EmploymentCreate)
+	r.DELETE("/core/customer/employment/delete/:id", customer.EmploymentDelete)
+
+	r.GET("/core/customer/type-of-organizations", customer.TypeOfOrganizationList)
+	r.GET("/core/customer/type-of-organization/:id", customer.TypeOfOrganizationGet)
+	r.POST("/core/customer/type-of-organization/create", customer.TypeOfOrganizationCreate)
+	r.DELETE("/core/customer/type-of-organization/delete/:id", customer.TypeOfOrganizationDelete)
+
+	r.GET("/core/customer/route-of-activities/:page/:limit/:value", customer.RouteOfActivityList)
+	r.GET("/core/customer/route-of-activity/:id", customer.RouteOfActivityGet)
+	r.POST("/core/customer/route-of-activity/create", customer.RouteOfActivityCreate)
+	r.DELETE("/core/customer/route-of-activity/delete/:id", customer.RouteOfActivityDelete)
+
 	// Run the server
 	r.Run()
 }

@@ -39,7 +39,7 @@ func EducationDegreeCreate(c *gin.Context) {
 		c.JSON(http.StatusNotImplemented, response.Err.Error())
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": nil, "message": "successfully"})
+	c.JSON(http.StatusOK, gin.H{"data": response.DataString, "message": "successfully"})
 }
 
 func EducationDegreeDelete(c *gin.Context) {
