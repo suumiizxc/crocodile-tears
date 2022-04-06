@@ -65,6 +65,12 @@ func main() {
 	r.POST("/core/customer/route-of-activity/create", customer.RouteOfActivityCreate)
 	r.DELETE("/core/customer/route-of-activity/delete/:id", customer.RouteOfActivityDelete)
 
+	r.GET("/core/customer/type-of-contacts", customer.TypeOfContactList)
+
+	r.GET("/core/customer/employees", customer.EmployeeList)
+	r.GET("/core/customer/employee/:id", customer.EmployeeGet)
+	r.POST("/core/customer/employee/create", customer.EmployeeCreate)
+	r.DELETE("/core/customer/employee/delete/:id", customer.EmployeeDelete)
 	// Run the server
 	r.Run()
 }
