@@ -71,6 +71,12 @@ func main() {
 	r.GET("/core/customer/employee/:id", customer.EmployeeGet)
 	r.POST("/core/customer/employee/create", customer.EmployeeCreate)
 	r.DELETE("/core/customer/employee/delete/:id", customer.EmployeeDelete)
+
+	r.GET("/core/customer/relation-customer-companys", customer.RelationCustomerCompanyList)
+	r.GET("/core/customer/relation-customer-company/:id", customer.RelationCustomerCompanyGet)
+	r.POST("/core/customer/relation-customer-company/create", customer.RelationCustomerCompanyCreate)
+	r.DELETE("/core/customer/relation-customer-company/delete/:id", customer.RelationCustomerCompanyDelete)
+
 	// Run the server
 	r.Run()
 }
