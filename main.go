@@ -77,6 +77,10 @@ func main() {
 	r.POST("/core/customer/relation-customer-company/create", customer.RelationCustomerCompanyCreate)
 	r.DELETE("/core/customer/relation-customer-company/delete/:id", customer.RelationCustomerCompanyDelete)
 
+	r.GET("/core/customer/languages/:page/:limit", customer.LanguageList)
+	r.GET("/core/customer/language/:param", customer.LanguageGet)
+	r.POST("/core/customer/language/create", customer.LanguageCreate)
+	r.DELETE("/core/customer/language/delete/:param", customer.LanguageDelete)
 	// Run the server
 	r.Run()
 }
