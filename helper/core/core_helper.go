@@ -81,7 +81,6 @@ func (_ch core_helper) Request(opcode string, field []byte) *Response {
 
 	var tmp []interface{}
 	var data = []byte(bodyString)
-	fmt.Println("datastring : ", bodyString)
 	if err := json.Unmarshal(data, &tmp); err != nil {
 		return &Response{Data: nil, DataString: bodyString, StatusCode: resp.StatusCode, Err: fmt.Errorf("error : %v", err.Error())}
 	}

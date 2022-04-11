@@ -43,7 +43,57 @@ func main() {
 	r.GET("/core/customer/education-degrees", customer.EducationDegreeList)
 	r.GET("/core/customer/education-degree/:id", customer.EducationDegreeGet)
 	r.POST("/core/customer/education-degree/create", customer.EducationDegreeCreate)
-	r.DELETE("/core/customer/education-degree/delete/:id", customer.EducationDegreeDelete)
+	r.DELETE("/core/customer/education-degree/:id/delete", customer.EducationDegreeDelete)
+
+	r.POST("/core/customer/nation/create", customer.NationCreate)
+	r.DELETE("/core/customer/nation/:id/delete", customer.NationDelete)
+	r.GET("/core/customer/nation/:id", customer.NationGet)
+	r.GET("/core/customer/nations/:limit/:page", customer.NationList)
+
+	r.POST("/core/customer/ethnicity/create", customer.EthnicityCreate)
+	r.DELETE("/core/customer/ethnicity/:id/delete", customer.EthnicityDelete)
+	r.GET("/core/customer/ethnicity/:id", customer.EthnicityGet)
+	r.GET("/core/customer/ethnicitys/:limit/:page", customer.EthnicityList)
+
+	r.POST("/core/customer/profession/create", customer.ProfessionCreate)
+	r.DELETE("/core/customer/profession/:id/delete", customer.ProfessionDelete)
+	r.GET("/core/customer/profession/:id", customer.ProfessionGet)
+	r.GET("/core/customer/professions/:limit/:page", customer.ProfessionList)
+
+	r.POST("/core/customer/address_type/create", customer.AddressTypeCreate)
+	r.DELETE("/core/customer/address_type/:id/delete", customer.AddressTypeDelete)
+	r.GET("/core/customer/address_type/:id", customer.AddressTypeGet)
+	r.GET("/core/customer/address_types/:limit/:page", customer.AddressTypeList)
+
+	r.POST("/core/customer/address/create", customer.AddressCreate)
+	r.DELETE("/core/customer/address/:id/delete", customer.AddressDelete)
+	r.GET("/core/customer/address/:id", customer.AddressGet)
+	r.GET("/core/customer/addresses/:limit/:page", customer.AddressList)
+
+	r.POST("/core/customer/respect/create", customer.RespectCreate)
+	r.DELETE("/core/customer/respect/:id/delete", customer.RespectDelete)
+	r.GET("/core/customer/respect/:id", customer.RespectGet)
+	r.GET("/core/customer/respects", customer.RespectList)
+
+	// r.POST("/core/customer/soc/create", customer.SOCCreate)
+	r.DELETE("/core/customer/soc/:id/delete", customer.SOCDelete)
+	r.GET("/core/customer/soc/:id", customer.SOCGet)
+	r.GET("/core/customer/socs", customer.SOCList)
+
+	// r.POST("/core/customer/reltype/create", customer)
+	r.DELETE("/core/customer/reltype/:id/delete", customer.RelTypeDelete)
+	r.GET("/core/customer/reltype/:id", customer.RelTypeGet)
+	r.GET("/core/customer/reltypes", customer.RelTypeList)
+
+	//r.POST("/core/customer/customer_category/create", customer.CustomerCategoryCreate)
+	r.DELETE("/core/customer/customer_category/:id/delete", customer.CustomerCategoryDelete)
+	r.GET("/core/customer/customer_category/:id", customer.CustomerCategoryGet)
+	r.GET("/core/customer/customer_categories", customer.CustomerCategoryList)
+
+	//r.POST("/core/customer/crctype/create", customer.CustomerCategoryCreate)
+	r.DELETE("/core/customer/crctype/:id/delete", customer.CRCTypeDelete)
+	r.GET("/core/customer/crctype/:id", customer.CRCTypeGet)
+	r.GET("/core/customer/crctypes", customer.CRCTypeList)
 
 	r.GET("/core/customer/education-levels", customer.EducationLevelList)
 	r.GET("/core/customer/education-level/:id", customer.EducationLevelGet)
