@@ -95,6 +95,42 @@ func main() {
 	r.GET("/core/customer/crctype/:id", customer.CRCTypeGet)
 	r.GET("/core/customer/crctypes", customer.CRCTypeList)
 
+	r.GET("/core/customer/education-levels", customer.EducationLevelList)
+	r.GET("/core/customer/education-level/:id", customer.EducationLevelGet)
+	r.POST("/core/customer/education-level/create", customer.EducationLevelCreate)
+	r.DELETE("/core/customer/education-level/delete/:id", customer.EducationLevelDelete)
+
+	r.GET("/core/customer/employments", customer.EmploymentList)
+	r.GET("/core/customer/employment/:id", customer.EmploymentGet)
+	r.POST("/core/customer/employment/create", customer.EmploymentCreate)
+	r.DELETE("/core/customer/employment/delete/:id", customer.EmploymentDelete)
+
+	r.GET("/core/customer/type-of-organizations", customer.TypeOfOrganizationList)
+	r.GET("/core/customer/type-of-organization/:id", customer.TypeOfOrganizationGet)
+	r.POST("/core/customer/type-of-organization/create", customer.TypeOfOrganizationCreate)
+	r.DELETE("/core/customer/type-of-organization/delete/:id", customer.TypeOfOrganizationDelete)
+
+	r.GET("/core/customer/route-of-activities/:page/:limit/:value", customer.RouteOfActivityList)
+	r.GET("/core/customer/route-of-activity/:id", customer.RouteOfActivityGet)
+	r.POST("/core/customer/route-of-activity/create", customer.RouteOfActivityCreate)
+	r.DELETE("/core/customer/route-of-activity/delete/:id", customer.RouteOfActivityDelete)
+
+	r.GET("/core/customer/type-of-contacts", customer.TypeOfContactList)
+
+	r.GET("/core/customer/employees", customer.EmployeeList)
+	r.GET("/core/customer/employee/:id", customer.EmployeeGet)
+	r.POST("/core/customer/employee/create", customer.EmployeeCreate)
+	r.DELETE("/core/customer/employee/delete/:id", customer.EmployeeDelete)
+
+	r.GET("/core/customer/relation-customer-companys", customer.RelationCustomerCompanyList)
+	r.GET("/core/customer/relation-customer-company/:id", customer.RelationCustomerCompanyGet)
+	r.POST("/core/customer/relation-customer-company/create", customer.RelationCustomerCompanyCreate)
+	r.DELETE("/core/customer/relation-customer-company/delete/:id", customer.RelationCustomerCompanyDelete)
+
+	r.GET("/core/customer/languages/:page/:limit", customer.LanguageList)
+	r.GET("/core/customer/language/:param", customer.LanguageGet)
+	r.POST("/core/customer/language/create", customer.LanguageCreate)
+	r.DELETE("/core/customer/language/delete/:param", customer.LanguageDelete)
 	// Run the server
 	r.Run()
 }
