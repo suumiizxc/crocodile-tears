@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	client "github.com/suumiizxc/gin-bookstore/models/client"
+	client "github.com/suumiizxc/car-marketplace/models/client"
+	marketplace "github.com/suumiizxc/car-marketplace/models/marketplace"
 
 	"gorm.io/gorm"
 
@@ -29,6 +30,10 @@ func ConnectDatabase() {
 	database.AutoMigrate(
 		&client.Client{},
 		&client.Permission{},
+
+		&marketplace.Car{},
+		&marketplace.CarImage{},
+		&marketplace.DiagonisImage{},
 	)
 
 	DB = database

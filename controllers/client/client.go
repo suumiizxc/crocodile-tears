@@ -9,9 +9,9 @@ import (
 	"github.com/gin-gonic/gin"
 	uuid "github.com/google/uuid"
 	"github.com/mashingan/smapping"
-	"github.com/suumiizxc/gin-bookstore/config"
-	"github.com/suumiizxc/gin-bookstore/helper/redis"
-	models "github.com/suumiizxc/gin-bookstore/models/client"
+	"github.com/suumiizxc/car-marketplace/config"
+	"github.com/suumiizxc/car-marketplace/helper/redis"
+	models "github.com/suumiizxc/car-marketplace/models/client"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -22,20 +22,22 @@ var (
 )
 
 type CreateClientInput struct {
-	FirstName string `json:"first_name" binding:"required"`
-	LastName  string `json:"last_name" binding:"required"`
-	Password  string `json:"password" binding:"required"`
-	Email     string `json:"email" binding:"required"`
-	Phone     string `json:"phone" binding:"required"`
+	FirstName    string `json:"first_name" binding:"required"`
+	LastName     string `json:"last_name" binding:"required"`
+	Password     string `json:"password" binding:"required"`
+	Registration string `json:"registration" binding:"required"`
+	Email        string `json:"email" binding:"required"`
+	Phone        string `json:"phone" binding:"required"`
 }
 
 type UpdateClientInput struct {
-	ID        uint   `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Password  string `json:"password"`
-	Email     string `json:"email"`
-	Phone     string `json:"phone"`
+	ID           uint   `json:"id"`
+	FirstName    string `json:"first_name"`
+	LastName     string `json:"last_name"`
+	Password     string `json:"password"`
+	Registration string `json:"registration"`
+	Email        string `json:"email"`
+	Phone        string `json:"phone"`
 }
 
 type LoginClientPhoneInput struct {

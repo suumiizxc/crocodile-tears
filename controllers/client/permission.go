@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/mashingan/smapping"
-	"github.com/suumiizxc/gin-bookstore/config"
-	models "github.com/suumiizxc/gin-bookstore/models/client"
+	"github.com/suumiizxc/car-marketplace/config"
+	models "github.com/suumiizxc/car-marketplace/models/client"
 )
 
 type CreatePermissionInput struct {

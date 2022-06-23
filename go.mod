@@ -1,4 +1,4 @@
-module github.com/suumiizxc/gin-bookstore
+module github.com/suumiizxc/car-marketplace
 
 go 1.17
 
