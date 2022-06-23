@@ -1,11 +1,26 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/suumiizxc/car-marketplace/config"
 	client "github.com/suumiizxc/car-marketplace/controllers/client"
+
 	"github.com/suumiizxc/car-marketplace/helper/redis"
 )
+
+func ensureLoggedIn() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		token := c.GetHeader("access_token")
+		if token == "2" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "pisda"})
+			c.Abort()
+			return
+		}
+		c.Next()
+	}
+}
 
 func main() {
 	r := gin.Default()
@@ -20,8 +35,12 @@ func main() {
 	r.POST("/client", client.CreateClient)
 	r.POST("/client/login-phone", client.LoginPhone)
 	r.POST("/client/login-email", client.LoginEmail)
-	r.GET("/client", client.ProfileClient)
 
+	r.GET("/client", client.ProfileClient)
+	clientRoute := r.Group("/u")
+	{
+		clientRoute.GET("/profile", ensureLoggedIn(), client.ProfileClient)
+	}
 	// Run the server
 	r.Run()
 }

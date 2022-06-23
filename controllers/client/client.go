@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	uuid "github.com/google/uuid"
@@ -157,13 +158,14 @@ func LoginEmail(c *gin.Context) {
 }
 
 func ProfileClient(c *gin.Context) {
-	clientToken, _, err := _validateClient(c.GetHeader("access_token"), module_name, sub_module_name, "profile")
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	// clientToken, _, err := _validateClient(c.GetHeader("access_token"), module_name, sub_module_name, "profile")
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
+	tokenid, _ := strconv.ParseUint(c.GetHeader("access_token"), 10, 64)
 	var client models.Client
-	if err := config.DB.Where("id = ?", clientToken.ID).First(&client).Error; err != nil {
+	if err := config.DB.Where("id = ?", tokenid).First(&client).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
