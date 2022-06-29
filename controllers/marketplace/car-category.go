@@ -10,6 +10,17 @@ import (
 	"github.com/suumiizxc/car-marketplace/models/marketplace"
 )
 
+type CreateCarCategoryInput struct {
+	Name        string `json:"name" binding:"required"`
+	HasChildren bool   `json:"has_children" binding:"required"`
+}
+
+type UpdateCarCategoryInput struct {
+	ID          uint   `json:"id"`
+	Name        string `json:"name" binding:"required"`
+	HasChildren bool   `json:"has_children" binding:"required"`
+}
+
 type CreateCarFeatureInput struct {
 	FeatureName  string `json:"feature_name" binding:"required"`
 	FeatureType  string `json:"feature_type" binding:"required"`
@@ -83,4 +94,44 @@ func UpdateCarFeature(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": feature})
+}
+
+func FindCarCategories(c *gin.Context) {
+	var categories []marketplace.CarCategory
+	if err := config.DB.Find(&categories).Error; err != nil {
+		c.JSON(http.StatusNotImplemented, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": categories})
+}
+
+func FindCarCategoryById(c *gin.Context) {
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	var category marketplace.CarCategory
+	if err := config.DB.Find(&category, id).Error; err != nil {
+		c.JSON(http.StatusNotImplemented, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": category})
+}
+
+func CreateCarCategory(c *gin.Context) {
+	var input CreateCarCategoryInput
+	var category marketplace.CarCategory
+
+	if errDTO := c.ShouldBind(&input); errDTO != nil {
+		c.JSON(http.StatusNotAcceptable, gin.H{"error": errDTO.Error()})
+		return
+	}
+	if err := smapping.FillStruct(&category, smapping.MapFields(&input)); err != nil {
+		c.JSON(http.StatusNotImplemented, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := config.DB.Save(&category).Error; err != nil {
+		c.JSON(http.StatusNotImplemented, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": category})
+
 }
