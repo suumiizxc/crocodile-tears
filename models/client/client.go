@@ -12,6 +12,7 @@ type Client struct {
 	Phone        string `json:"phone"`
 	Token        string `gorm:"-" json:"token,omitempty"`
 	IsActive     uint64 `json:"is_active"`
+	Role         uint64 `json:"role"`
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 }
