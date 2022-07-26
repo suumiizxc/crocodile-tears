@@ -4,9 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	client "github.com/suumiizxc/car-marketplace/models/client"
-	marketplace "github.com/suumiizxc/car-marketplace/models/marketplace"
-
 	"gorm.io/gorm"
 
 	"github.com/joho/godotenv"
@@ -27,14 +24,14 @@ func ConnectDatabase() {
 		panic("Failed to connect to database!")
 	}
 
-	database.AutoMigrate(
-		&client.Client{},
-		&client.Permission{},
+	// database.AutoMigrate(
+	// 	&client.Client{},
+	// 	&client.Permission{},
 
-		&marketplace.Car{},
-		&marketplace.CarImage{},
-		&marketplace.DiagonisImage{},
-	)
+	// 	&marketplace.Car{},
+	// 	&marketplace.CarImage{},
+	// 	&marketplace.DiagonisImage{},
+	// )
 
 	DB = database
 }

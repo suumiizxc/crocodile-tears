@@ -133,5 +133,33 @@ func CreateCarCategory(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": category})
+}
 
+func UpdateCarCategory(c *gin.Context) {
+	var input UpdateCarCategoryInput
+	var category marketplace.CarCategory
+
+	if errDTO := c.ShouldBind(&input); errDTO != nil {
+		c.JSON(http.StatusNotAcceptable, gin.H{"error": errDTO.Error()})
+		return
+	}
+
+	if err := smapping.FillStruct(&category, smapping.MapFields(&input)); err != nil {
+		c.JSON(http.StatusNotImplemented, gin.H{"error": err.Error()})
+		return
+	}
+	if err := config.DB.Updates(&category).Error; err != nil {
+		c.JSON(http.StatusNotImplemented, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": category})
+}
+
+func DeleteCarCategory(c *gin.Context) {
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err := config.DB.Delete(&marketplace.CarCategory{}, id).Error; err != nil {
+		c.JSON(http.StatusNotImplemented, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{})
 }
