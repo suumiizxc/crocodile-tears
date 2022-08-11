@@ -26,3 +26,11 @@ func (cc *CarCondition) GetList() ([]CarCondition, error) {
 	}
 	return ccms, nil
 }
+
+func (cc *CarCondition) DeleteByID() error {
+	var ccm CarCondition
+	if err := config.DB.Delete(&ccm, cc.ID).Error; err != nil {
+		return err
+	}
+	return nil
+}

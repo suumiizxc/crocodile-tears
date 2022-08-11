@@ -55,3 +55,26 @@ func FindCarMyMarkCMID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": cm})
 }
+
+func GetCarMarkList(c *gin.Context) {
+	var marks marketplace.CarMark
+	cm, err := marks.GetList()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": cm})
+
+}
+
+func DeleteCarMarkByID(c *gin.Context) {
+	var mark marketplace.CarMark
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	mark.ID = id
+	err := mark.DeleteByID()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully deleted"})
+}

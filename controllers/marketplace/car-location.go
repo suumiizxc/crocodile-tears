@@ -66,3 +66,15 @@ func GetCarLocationList(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": cms})
 }
+
+func DeleteCarLocationByID(c *gin.Context) {
+	var location marketplace.CarLocation
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	location.ID = id
+	err := location.DeleteByID()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully deleted"})
+}

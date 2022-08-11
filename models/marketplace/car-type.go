@@ -2,6 +2,8 @@ package marketplace
 
 import "github.com/suumiizxc/car-marketplace/config"
 
+// import "github.com/suumiizxc/car-marketplace/config"
+
 type CarType struct {
 	ID   uint64 `json:"id" gorm:"primary_key"`
 	Name string `json:"name"`
@@ -25,4 +27,12 @@ func (ct *CarType) List() ([]CarType, error) {
 		return []CarType{}, err
 	}
 	return cmtss, nil
+}
+
+func (ct *CarType) DeleteByID() error {
+	var ctm CarType
+	if err := config.DB.Delete(&ctm, ct.ID).Error; err != nil {
+		return err
+	}
+	return nil
 }

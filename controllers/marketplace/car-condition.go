@@ -52,3 +52,15 @@ func GetCarConditionList(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": cms})
 }
+
+func DeleteCarConditionByID(c *gin.Context) {
+	var condition marketplace.CarCondition
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	condition.ID = id
+	err := condition.DeleteByID()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"error": err})
+}

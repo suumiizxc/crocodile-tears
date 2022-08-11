@@ -52,3 +52,15 @@ func GetCarInnerColorList(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": cms})
 }
+
+func DeleteCarInnerColorByID(c *gin.Context) {
+	var innerColor marketplace.CarInnerColor
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	innerColor.ID = id
+	err := innerColor.DeleteByID()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully deleted"})
+}

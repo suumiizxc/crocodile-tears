@@ -64,3 +64,15 @@ func GetCarManufactoryList(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": cms})
 }
+
+func DeleteCarManufactoryByID(c *gin.Context) {
+	var manufactory marketplace.CarManufactory
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	manufactory.ID = id
+	err := manufactory.DeleteByID()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully deleted"})
+}

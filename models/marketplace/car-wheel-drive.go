@@ -2,6 +2,8 @@ package marketplace
 
 import "github.com/suumiizxc/car-marketplace/config"
 
+// import "github.com/suumiizxc/car-marketplace/config"
+
 type CarWheelDrive struct {
 	ID   uint64 `json:"id" gorm:"primary_key"`
 	Name string `json:"name"`
@@ -25,4 +27,12 @@ func (cwd *CarWheelDrive) List() ([]CarWheelDrive, error) {
 		return []CarWheelDrive{}, err
 	}
 	return cwds, nil
+}
+
+func (cwd *CarWheelDrive) DeleteByID() error {
+	cwdm := CarWheelDrive{}
+	if err := config.DB.Find(&cwdm, cwd.ID).Error; err != nil {
+		return err
+	}
+	return nil
 }

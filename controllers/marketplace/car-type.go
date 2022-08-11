@@ -54,3 +54,15 @@ func GetCarTypeList(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": typeM})
 
 }
+
+func DeleteCarTypeByID(c *gin.Context) {
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	var typeD marketplace.CarType
+	typeD.ID = id
+	err := typeD.DeleteByID()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully deleted"})
+}

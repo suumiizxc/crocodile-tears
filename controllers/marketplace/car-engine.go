@@ -53,3 +53,15 @@ func GetCarEngineList(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": cms})
 }
+
+func DeleteCarEngineByID(c *gin.Context) {
+	var engine marketplace.CarEngine
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	engine.ID = id
+	err := engine.DeleteByID()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully deleted"})
+}

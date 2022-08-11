@@ -52,3 +52,15 @@ func FindCarVelocityBoxList(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": cms})
 }
+
+func DeleteCarVelocityBoxByID(c *gin.Context) {
+	var veboxs marketplace.CarVelocityBox
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	veboxs.ID = id
+	err := veboxs.DeleteByID()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully created"})
+}

@@ -52,3 +52,15 @@ func GetCarLeasingTypeList(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": cms})
 }
+
+func DeleteCarLeasingTypeByID(c *gin.Context) {
+	var leasingType marketplace.CarLeasingType
+	id, _ := strconv.ParseUint(c.Param("id"), 10, 64)
+	leasingType.ID = id
+	err := leasingType.DeleteByID()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully deleted"})
+}

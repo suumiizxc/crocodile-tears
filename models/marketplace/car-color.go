@@ -2,6 +2,8 @@ package marketplace
 
 import "github.com/suumiizxc/car-marketplace/config"
 
+// import "github.com/suumiizxc/car-marketplace/config"
+
 type CarColor struct {
 	ID   uint64 `json:"id" gorm:"primary_key"`
 	Name string `json:"name"`
@@ -25,4 +27,12 @@ func (cc *CarColor) List() ([]CarColor, error) {
 		return []CarColor{}, err
 	}
 	return ccm, nil
+}
+
+func (cc *CarColor) DeleteByID() error {
+	var ccm CarColor
+	if err := config.DB.Delete(&ccm, cc.ID).Error; err != nil {
+		return err
+	}
+	return nil
 }
