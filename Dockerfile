@@ -1,17 +1,14 @@
-# syntax=docker/dockerfile:1
+# golang image where workspace (GOPATH) configured at /go.
+FROM golang:latest
 
-FROM golang:1.16-alpine
+# Copy the local package files to the container’s workspace.
+ADD . /go/src/github.com/suumizixc/car-marketplace
 
-WORKDIR /app
+# Build the golang-docker command inside the container.
+RUN go install github.com/suumiizxc/car-marketplace
 
-COPY go.mod ./
-COPY go.sum ./
-RUN go mod download
+# Run the golang-docker command when the container starts.
+ENTRYPOINT /go/bin/golang-docker
 
-COPY *.go ./
-
-RUN go build -o /docker-gs-ping
-
+# http server listens on port 8080.
 EXPOSE 8080
-
-CMD ["./car-marketplace"]
