@@ -101,7 +101,7 @@ func CreateClient(c *gin.Context) {
 		return
 	}
 	if err := redis.RS.Set(client.Token, json, 0).Err(); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+		c.JSON(http.StatusBadRequest, gin.H{"error-redis": err})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": client})
