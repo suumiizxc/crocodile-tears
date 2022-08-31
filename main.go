@@ -144,5 +144,5 @@ func main() {
 		carRoute.POST("/migration", marketplace.CarMigration)
 	}
 	// Run the server
-	r.Run()
+	r.Run(":80")
 }
