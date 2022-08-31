@@ -20,7 +20,7 @@ func CreateCarCondition(c *gin.Context) {
 		c.JSON(http.StatusNotAcceptable, gin.H{"error": errDTO.Error()})
 		return
 	}
-	if err := smapping.FillStruct(&condition, smapping.MapFields(input)); err != nil {
+	if err := smapping.FillStruct(&condition, smapping.MapFields(&input)); err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}

@@ -14,7 +14,7 @@ type CreateCarColorInput struct {
 }
 
 func CreateCarColor(c *gin.Context) {
-	var input CreateCarCategoryInput
+	var input CreateCarColorInput
 	var color marketplace.CarColor
 	if errDTO := c.ShouldBind(&input); errDTO != nil {
 		c.JSON(http.StatusNotAcceptable, gin.H{"error": errDTO.Error()})

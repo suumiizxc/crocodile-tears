@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 
+	"github.com/suumiizxc/car-marketplace/models/client"
 	"gorm.io/gorm"
 
 	"gorm.io/driver/postgres"
@@ -23,14 +24,9 @@ func ConnectDatabase() {
 		panic("Failed to connect to database!")
 	}
 
-	// database.AutoMigrate(
-	// 	&client.Client{},
-	// 	&client.Permission{},
-
-	// 	&marketplace.Car{},
-	// 	&marketplace.CarImage{},
-	// 	&marketplace.DiagonisImage{},
-	// )
-
+	database.AutoMigrate(
+		&client.Client{},
+		&client.Permission{},
+	)
 	DB = database
 }
