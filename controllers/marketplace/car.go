@@ -111,3 +111,13 @@ func UpdateCar(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": car})
 }
+
+func CarMigration(c *gin.Context) {
+	car := marketplace.Car{}
+	err := car.Migration()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "successfully car migrated"})
+}

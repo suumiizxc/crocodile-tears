@@ -136,6 +136,13 @@ func main() {
 		carWheelDriveRoute.POST("/create", custom_middleware.EnsureLoggedInAdmin(), marketplace.CreateCarWheelDrive)
 		carWheelDriveRoute.DELETE("/delete-by-id/:id", custom_middleware.EnsureLoggedInAdmin(), marketplace.DeleteCarWheelDriveByID)
 	}
+	carRoute := r.Group("/car")
+	{
+		carRoute.POST("/create", marketplace.CreateCar)
+		carRoute.GET("/get-by-id/:id", marketplace.FindCarById)
+		carRoute.PUT("/update", marketplace.UpdateCar)
+		carRoute.POST("/migration", marketplace.CarMigration)
+	}
 	// Run the server
 	r.Run()
 }

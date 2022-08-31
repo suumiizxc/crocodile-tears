@@ -3,6 +3,7 @@ package marketplace
 import (
 	"time"
 
+	"github.com/suumiizxc/car-marketplace/config"
 	"gorm.io/gorm"
 )
 
@@ -44,4 +45,25 @@ type DiagonisImage struct {
 	CarID uint64
 	Image string
 	Url   string
+}
+
+func (c *Car) Migration() error {
+	err := config.DB.AutoMigrate(
+		Car{},
+		CarCategory{},
+		CarColor{},
+		CarCondition{},
+		CarEngine{},
+		CarInnerColor{},
+		CarLeasingType{},
+		CarLocation{},
+		CarManufactory{},
+		CarMark{},
+		CarType{},
+		CarVelocityBox{},
+		CarWheelDrive{},
+		CarFeature{},
+	)
+	return err
+
 }
