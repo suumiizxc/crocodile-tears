@@ -39,7 +39,7 @@ type UpdateCarFeatureInput struct {
 }
 
 func FindCarFeatures(c *gin.Context) {
-	var features marketplace.CarFeature
+	var features []marketplace.CarFeature
 	if err := config.DB.Find(&features).Error; err != nil {
 		c.JSON(http.StatusNotImplemented, gin.H{"error": err.Error()})
 		return
