@@ -25,7 +25,7 @@ func EnsureLoggedInClient() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		if client.Role == 1 {
+		if client.Role < 1 {
 			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Permission denied"})
 			c.Abort()
 			return
@@ -50,7 +50,7 @@ func EnsureLoggedInAdmin() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		if client.Role == 3 {
+		if client.Role < 3 {
 			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Permission denied"})
 			c.Abort()
 			return
@@ -75,7 +75,7 @@ func EnsureLoggedInOperator() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		if client.Role == 2 {
+		if client.Role < 2 {
 			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Permission denied"})
 			c.Abort()
 			return
