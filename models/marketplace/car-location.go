@@ -1,6 +1,10 @@
 package marketplace
 
-import "github.com/suumiizxc/car-marketplace/config"
+import (
+	"fmt"
+
+	"github.com/suumiizxc/car-marketplace/config"
+)
 
 // import "github.com/suumiizxc/car-marketplace/config"
 
@@ -20,6 +24,9 @@ func (cl *CarLocation) FindByID() (CarLocation, error) {
 	if err := config.DB.Find(&clm, cl.ID).Error; err != nil {
 		return CarLocation{}, err
 	}
+	if clm.ID == 0 {
+		return CarLocation{}, fmt.Errorf("Not found")
+	}
 	return clm, nil
 }
 
@@ -27,6 +34,9 @@ func (cl *CarLocation) FindByName() (CarLocation, error) {
 	var clm CarLocation
 	if err := config.DB.Where("name = ?", cl.Name).Find(&clm).Error; err != nil {
 		return CarLocation{}, err
+	}
+	if clm.ID == 0 {
+		return CarLocation{}, fmt.Errorf("Not found")
 	}
 	return clm, nil
 }

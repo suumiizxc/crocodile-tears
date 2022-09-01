@@ -1,6 +1,10 @@
 package marketplace
 
-import "github.com/suumiizxc/car-marketplace/config"
+import (
+	"fmt"
+
+	"github.com/suumiizxc/car-marketplace/config"
+)
 
 // import "github.com/suumiizxc/car-marketplace/config"
 
@@ -17,6 +21,9 @@ func (cl *CarLeasingType) FindByID() (CarLeasingType, error) {
 	var clm CarLeasingType
 	if err := config.DB.Find(&clm, cl.ID).Error; err != nil {
 		return CarLeasingType{}, err
+	}
+	if clm.ID == 0 {
+		return CarLeasingType{}, fmt.Errorf("Not found")
 	}
 	return clm, nil
 }

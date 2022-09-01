@@ -1,6 +1,10 @@
 package marketplace
 
-import "github.com/suumiizxc/car-marketplace/config"
+import (
+	"fmt"
+
+	"github.com/suumiizxc/car-marketplace/config"
+)
 
 // import "github.com/suumiizxc/car-marketplace/config"
 
@@ -17,6 +21,9 @@ func (cvb *CarVelocityBox) GetByID() (CarVelocityBox, error) {
 	var cvbm CarVelocityBox
 	if err := config.DB.Find(&cvbm, cvb.ID).Error; err != nil {
 		return CarVelocityBox{}, err
+	}
+	if cvbm.ID == 0 {
+		return CarVelocityBox{}, fmt.Errorf("Not found")
 	}
 	return cvbm, nil
 }

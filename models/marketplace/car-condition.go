@@ -1,6 +1,10 @@
 package marketplace
 
-import "github.com/suumiizxc/car-marketplace/config"
+import (
+	"fmt"
+
+	"github.com/suumiizxc/car-marketplace/config"
+)
 
 type CarCondition struct {
 	ID   uint64 `json:"id" gorm:"primary_key"`
@@ -15,6 +19,9 @@ func (cc *CarCondition) FindByID() (CarCondition, error) {
 	var ccm CarCondition
 	if err := config.DB.Find(&ccm, cc.ID).Error; err != nil {
 		return CarCondition{}, err
+	}
+	if ccm.ID == 0 {
+		return CarCondition{}, fmt.Errorf("Not found")
 	}
 	return ccm, nil
 }

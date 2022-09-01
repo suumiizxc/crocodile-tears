@@ -1,6 +1,10 @@
 package marketplace
 
-import "github.com/suumiizxc/car-marketplace/config"
+import (
+	"fmt"
+
+	"github.com/suumiizxc/car-marketplace/config"
+)
 
 // import "github.com/suumiizxc/car-marketplace/config"
 
@@ -17,6 +21,9 @@ func (cic *CarInnerColor) GetByID() (CarInnerColor, error) {
 	var cicm CarInnerColor
 	if err := config.DB.Find(&cicm, cic.ID).Error; err != nil {
 		return CarInnerColor{}, err
+	}
+	if cicm.ID == 0 {
+		return CarInnerColor{}, fmt.Errorf("Not found")
 	}
 	return cicm, nil
 }
