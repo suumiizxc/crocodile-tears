@@ -14,7 +14,7 @@ func EnsureLoggedInClient() gin.HandlerFunc {
 		var client models.Client
 		err := json.Unmarshal([]byte(token), &client)
 		if err != nil {
-			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Unmarshal failed"})
+			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Token not structured"})
 			c.Abort()
 			return
 		}
@@ -33,7 +33,7 @@ func EnsureLoggedInAdmin() gin.HandlerFunc {
 		var client models.Client
 		err := json.Unmarshal([]byte(token), &client)
 		if err != nil {
-			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Unmarshal failed"})
+			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Token not structured"})
 			c.Abort()
 			return
 		}
@@ -52,7 +52,7 @@ func EnsureLoggedInOperator() gin.HandlerFunc {
 		var client models.Client
 		err := json.Unmarshal([]byte(token), &client)
 		if err != nil {
-			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Unmarshal failed"})
+			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Token not structured"})
 			c.Abort()
 			return
 		}
