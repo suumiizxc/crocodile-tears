@@ -20,7 +20,7 @@ func CreateCarWheelDrive(c *gin.Context) {
 		c.JSON(http.StatusNotAcceptable, gin.H{"error": errDTO.Error()})
 		return
 	}
-	if err := smapping.FillStruct(cwd, smapping.MapFields(input)); err != nil {
+	if err := smapping.FillStruct(&cwd, smapping.MapFields(&input)); err != nil {
 		c.JSON(http.StatusNotAcceptable, gin.H{"error": err.Error()})
 		return
 	}
