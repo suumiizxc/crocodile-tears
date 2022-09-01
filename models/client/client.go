@@ -16,3 +16,11 @@ type Client struct {
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 }
+
+type ClientActivation struct {
+	ID         uint      `json:"id" gorm:"primary_key"`
+	ClientID   uint      `json:"client_id"`
+	OTP        string    `json:"otp"`
+	ExpireDate time.Time `json:"expire_date"`
+	Status     string    `json:"status"`
+}

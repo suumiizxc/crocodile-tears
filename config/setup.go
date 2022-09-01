@@ -27,6 +27,7 @@ func ConnectDatabase() {
 	database.AutoMigrate(
 		&client.Client{},
 		&client.Permission{},
+		&client.ClientActivation{},
 	)
 	DB = database
 }

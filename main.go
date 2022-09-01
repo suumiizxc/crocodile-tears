@@ -40,6 +40,7 @@ func main() {
 	clientRoute := r.Group("/client")
 	{
 		clientRoute.GET("/profile", custom_middleware.EnsureLoggedInClient(), client.ProfileClient)
+		clientRoute.POST("/activate-otp/:otp/:client_id", client.ActivatePhone)
 	}
 	carFeatureRoute := r.Group("/car/feature")
 	{

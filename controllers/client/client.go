@@ -3,9 +3,12 @@ package client
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
+	"math/rand"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	uuid "github.com/google/uuid"
@@ -95,15 +98,34 @@ func CreateClient(c *gin.Context) {
 		return
 	}
 	client.Token = uuid.New().String()
-	json, err := json.Marshal(client)
+	// json, err := json.Marshal(client)
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err})
+	// 	return
+	// }
+	// if err := redis.RS.Set(client.Token, json, 0).Err(); err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error-redis": err})
+	// 	return
+	// }
+	rand.Seed(time.Now().UnixNano())
+	randNumber := rand.Intn(9000) + 1000
+	var activition models.ClientActivation
+	activition.ClientID = client.ID
+	activition.ExpireDate = time.Now().Add(time.Minute * 5)
+	activition.OTP = fmt.Sprintf("%v", randNumber)
+	resp, _ := http.Get(fmt.Sprintf("https://internal.mik.mn/kXJyEbb7O3co?number=%v&msg=%v&source=INTERNAL", client.Phone, randNumber))
+
+	_, err := ioutil.ReadAll(resp.Body)
+
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err})
-		return
+		log.Fatal(err)
 	}
-	if err := redis.RS.Set(client.Token, json, 0).Err(); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error-redis": err})
-		return
+
+	activition.Status = "pending"
+	if err := config.DB.Create(&activition).Error; err != nil {
+		fmt.Println("activition token error : ", err.Error())
 	}
+
 	c.JSON(http.StatusOK, gin.H{"data": client})
 }
 
@@ -130,6 +152,48 @@ func LoginPhone(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": client})
+}
+
+func ActivatePhone(c *gin.Context) {
+	client := models.Client{}
+	otp := models.ClientActivation{}
+	otp.OTP = c.Param("otp")
+	clientID, err := strconv.ParseUint(c.Param("client_id"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusNotAcceptable, gin.H{"error": "client_id not defined"})
+		return
+	}
+	client.ID = uint(clientID)
+	if err := config.DB.Where("otp = ?", otp.OTP).Where("client_id = ?", client.ID).Last(&otp).Error; err != nil {
+		c.JSON(http.StatusNotAcceptable, gin.H{"error": "Failed in otp", "message": err.Error()})
+		return
+	}
+	if err := config.DB.Where("id = ?", client.ID).Find(&client).Error; err != nil {
+		c.JSON(http.StatusNotAcceptable, gin.H{"error": "Failed in client", "message": err.Error()})
+		return
+	}
+	if client.ID > 0 {
+		if client.ID == otp.ClientID {
+			if otp.ExpireDate.Sub(time.Now()) >= 0 {
+				client.IsActive = 1
+				client.Role = 1
+				fmt.Println("id : ", client.ID, " otp : ", otp.ID)
+				config.DB.Model(&models.Client{}).Where("id = ?", client.ID).Update("role", 1).Update("is_active", 1)
+				config.DB.Model(&models.ClientActivation{}).Where("id = ?", otp.ID).Update("status", "success")
+				c.JSON(http.StatusOK, gin.H{"message": "successfully activated"})
+			} else {
+				c.JSON(http.StatusBadRequest, gin.H{"error": "Activition token expired"})
+				return
+			}
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Failed in activition token"})
+			return
+		}
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed in activition token"})
+		return
+	}
+
 }
 
 func LoginEmail(c *gin.Context) {
