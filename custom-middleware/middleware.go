@@ -5,14 +5,21 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/suumiizxc/car-marketplace/helper/redis"
 	models "github.com/suumiizxc/car-marketplace/models/client"
 )
 
 func EnsureLoggedInClient() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.GetHeader("access_token")
+		objToken, err := redis.RS.Get(token).Result()
+		if err != nil {
+			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Token not founded"})
+			c.Abort()
+			return
+		}
 		var client models.Client
-		err := json.Unmarshal([]byte(token), &client)
+		err = json.Unmarshal([]byte(objToken), &client)
 		if err != nil {
 			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Token not structured"})
 			c.Abort()
@@ -30,8 +37,14 @@ func EnsureLoggedInClient() gin.HandlerFunc {
 func EnsureLoggedInAdmin() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.GetHeader("access_token")
+		objToken, err := redis.RS.Get(token).Result()
+		if err != nil {
+			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Token not founded"})
+			c.Abort()
+			return
+		}
 		var client models.Client
-		err := json.Unmarshal([]byte(token), &client)
+		err = json.Unmarshal([]byte(objToken), &client)
 		if err != nil {
 			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Token not structured"})
 			c.Abort()
@@ -49,8 +62,14 @@ func EnsureLoggedInAdmin() gin.HandlerFunc {
 func EnsureLoggedInOperator() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.GetHeader("access_token")
+		objToken, err := redis.RS.Get(token).Result()
+		if err != nil {
+			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Token not founded"})
+			c.Abort()
+			return
+		}
 		var client models.Client
-		err := json.Unmarshal([]byte(token), &client)
+		err = json.Unmarshal([]byte(objToken), &client)
 		if err != nil {
 			c.JSON(http.StatusNotAcceptable, gin.H{"error": "Token not structured"})
 			c.Abort()

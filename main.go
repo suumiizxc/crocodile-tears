@@ -67,7 +67,7 @@ func main() {
 	{
 		carConditionRoute.GET("/all", marketplace.GetCarConditionList)
 		carConditionRoute.GET("/get-by-id/:id", marketplace.FindCarConditionByID)
-		carConditionRoute.POST("/create", marketplace.CreateCarCondition)
+		carConditionRoute.POST("/create", custom_middleware.EnsureLoggedInAdmin(), marketplace.CreateCarCondition)
 		carConditionRoute.DELETE("/delete-by-id/:id", custom_middleware.EnsureLoggedInAdmin(), marketplace.DeleteCarConditionByID)
 	}
 	carEngineRoute := r.Group("/car/engine")
